@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_image_anime"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="8dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="8dp"
+    android:id="@+id/anime_item">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_anime_image_item"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_image_anime"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/anime_image"
+            android:src="@drawable/anime"
+            app:layout_constraintEnd_toEndOf="@id/anime_item"
+            app:layout_constraintStart_toStartOf="@id/anime_item"
+            app:layout_constraintTop_toTopOf="@id/anime_item"
+            app:layout_constraintBottom_toBottomOf="@id/anime_item"
+            tools:ignore="NotSibling" />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_image_anime"
+            android:background="@drawable/background_image"
+            app:layout_constraintBottom_toBottomOf="@id/main_anime_image_item"
+            app:layout_constraintEnd_toEndOf="@id/main_anime_image_item"
+            app:layout_constraintStart_toStartOf="@id/main_anime_image_item"
+            app:layout_constraintTop_toTopOf="@id/main_anime_image_item" />
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/anime_image_i"
+            android:layout_width="@dimen/anime_width"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/anime_image"
+            android:src="@drawable/anime"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/anime_name"
+            android:layout_width="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="jjhjhhjhjhh"
+            app:layout_constraintEnd_toEndOf="@id/main_anime_image_item"
+            app:layout_constraintStart_toEndOf="@id/anime_image_i"
+            app:layout_constraintTop_toTopOf="@id/anime_image_i"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/normal_space"
+
+            android:textSize="12dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="Hero icajkjgkdjgkhhjfhkfhjbvbvbvvvvvvvvvvvvvvfffffffffffffffffds       sdfd gh hgj sdgf awr  t u yivvvvvvvvvvvvvvvvvvvvvvkryueyreruyryyryjgkfjkgkjkjkgffjhkgjkhjkgkjhkkgdemanf"
+            app:layout_constraintStart_toStartOf="@id/anime_name"
+            app:layout_constraintTop_toBottomOf="@id/anime_name"
+            app:layout_constraintEnd_toEndOf="@id/main_anime_image_item"/>
+
+
+        <TextView
+            android:id="@+id/rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="Rate"
+            app:layout_constraintStart_toStartOf="@id/anime_name"
+            app:layout_constraintBottom_toBottomOf="@id/anime_image_i"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/released"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:text="Released"
+            app:layout_constraintStart_toEndOf="@id/rate"
+            app:layout_constraintBottom_toBottomOf="@id/rate"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Length"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@id/released"
+            app:layout_constraintBottom_toBottomOf="@id/rate"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/rate_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="@id/rate"
+            app:layout_constraintBottom_toTopOf="@id/rate"
+            app:layout_constraintEnd_toEndOf="@id/rate"/>
+
+
+        <TextView
+            android:id="@+id/released_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1998"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/released"
+            app:layout_constraintBottom_toTopOf="@id/released"
+            app:layout_constraintEnd_toEndOf="@id/released"/>
+
+        <TextView
+            android:id="@+id/length_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:text="1h 32m"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/length"
+            app:layout_constraintBottom_toTopOf="@id/length"
+            app:layout_constraintEnd_toEndOf="@id/length"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

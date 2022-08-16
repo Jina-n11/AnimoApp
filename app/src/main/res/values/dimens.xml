@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normal_space">16dp</dimen>
+    <dimen name="normal_radius">8dp</dimen>
+    <dimen name="height_image">260dp</dimen>
+    <dimen name="anime_width">120dp</dimen>
+    <dimen name="anime_height">180dp</dimen>
+    <dimen name="height_image_anime">140dp</dimen>
+</resources>
