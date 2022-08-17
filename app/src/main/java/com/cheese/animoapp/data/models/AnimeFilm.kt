@@ -1,8 +1,10 @@
 package com.cheese.animoapp.data.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-data class NewModelItem(
+
+data class AnimeFilm(
 
     @SerializedName("id")
     val id: String,
@@ -38,29 +40,17 @@ data class NewModelItem(
     val rateScore: String,
 
     @SerializedName("species")
-    val species: List<Species>,
-
+    val species: List<String>,
 
 
     val locations: List<String>,
 
-    val movie_banner: String,
-
-    val original_title: String,
-
-    val rt_score: String,
-
-    val running_time: String,
 
     val people: List<String>,
-
-    val release_date: String,
-
-
 
 
     val url: String,
     val vehicles: List<String>
 
 
-)
+) : Serializable

@@ -13,8 +13,7 @@ data class Species(
     val classification: String,
 
     @SerializedName("films")
-    val films: List<Films>,
-
+    val films: List<String>,
 
     @SerializedName("eye_colors")
     val eyeColors: String,

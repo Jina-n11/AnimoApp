@@ -1,4 +1,3 @@
-
 import com.cheese.animoapp.util.Constants
 import okhttp3.HttpUrl
 import okhttp3.Request
@@ -9,7 +8,7 @@ object RequestHelper {
         .host(Constants.ApiKey.HOST)
 
     fun makeAnimeRequest(): Request {
-        val url= httpUrl
+        val url = httpUrl
             .addPathSegment(Constants.ApiKey.PATH_FILMS)
             .build()
         return Request.Builder()
@@ -17,11 +16,14 @@ object RequestHelper {
             .get()
             .build()
     }
-    fun makeAnimeRequestByOriginalTitle(nameAnime: String ): Request {
-        val url= httpUrl
+
+    fun makeAnimeRequestByOriginalTitle(nameAnime: String): Request {
+        val url = httpUrl
             .addPathSegment(Constants.ApiKey.PATH_FILMS)
-            .addQueryParameter(Constants.ApiKey.Params.Original_Title_Romanised,
-                nameAnime)
+            .addQueryParameter(
+                Constants.ApiKey.Params.Original_Title_Romanised,
+                nameAnime
+            )
             .build()
         return Request.Builder()
             .url(url)
@@ -29,11 +31,14 @@ object RequestHelper {
             .addHeader(Constants.ApiKey.ACCEPT, Constants.ApiKey.TYPE)
             .build()
     }
+
     fun makeAnimeRequestByTitle(nameAnime: String): Request {
-        val url= httpUrl
+        val url = httpUrl
             .addPathSegment(Constants.ApiKey.PATH_FILMS)
-            .addQueryParameter(Constants.ApiKey.Params.TITLE,
-                nameAnime)
+            .addQueryParameter(
+                Constants.ApiKey.Params.TITLE,
+                nameAnime
+            )
             .build()
         return Request.Builder()
             .url(url)
@@ -41,10 +46,11 @@ object RequestHelper {
             .addHeader(Constants.ApiKey.ACCEPT, Constants.ApiKey.TYPE)
             .build()
     }
-    fun makeAnimeRequestById(id: String , path: String): Request {
-        val url= httpUrl
+
+    fun makeAnimeRequestById(id: String, path: String): Request {
+        val url = httpUrl
             .addPathSegment(path)
-            .addQueryParameter(Constants.ApiKey.Params.ID,id)
+            .addQueryParameter(Constants.ApiKey.Params.ID, id)
             .build()
         return Request.Builder()
             .url(url)

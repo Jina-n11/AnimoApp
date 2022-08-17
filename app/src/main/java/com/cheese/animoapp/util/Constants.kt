@@ -4,6 +4,8 @@ object Constants {
     const val HOME_FRAGMENT = "HOME_FRAGMENT"
     const val DETAILS_FRAGMENT = "DETAILS_FRAGMENT"
     const val KEY_ID = "ID"
+    const val ANIME_NOT_FOUND = "anime not found"
+
 
 
     object ApiKey{

@@ -6,4 +6,14 @@
     <dimen name="anime_width">120dp</dimen>
     <dimen name="anime_height">180dp</dimen>
     <dimen name="height_image_anime">140dp</dimen>
+    <dimen name="small_space">4dp</dimen>
+    <dimen name="big_margin">52dp</dimen>
+    <dimen name="mid_space">8dp</dimen>
+    <dimen name="size_title">16sp</dimen>
+    <dimen name="card_space">12dp</dimen>
+    <dimen name="text_norml">12sp</dimen>
+    <dimen name="mid_text">14sp</dimen>
+    <dimen name="big_title_text">24sp</dimen>
+    <dimen name="title_name">18sp</dimen>
+    <dimen name="size_icon">24dp</dimen>
 </resources>

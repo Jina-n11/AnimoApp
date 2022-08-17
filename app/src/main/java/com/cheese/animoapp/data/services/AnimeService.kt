@@ -1,23 +1,23 @@
-
 import com.cheese.animoapp.data.State
-import com.cheese.animoapp.data.models.NewModel
+import com.cheese.animoapp.data.models.Anime
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 
 interface BaseAnimeService {
-    fun getAnimeById(id: String ,  path :String): State<NewModel>
-    fun getAllAnime(): State<NewModel>
-    fun getAnimeByOriginalTitle(nameAnime: String): State<NewModel>
+    fun getAnimeById(id: String, path: String): State<Anime>
+    fun getAllAnime(): State<Anime>
+    fun getAnimeByOriginalTitle(nameAnime: String): State<Anime>
 
 }
 
 class AnimeService : BaseAnimeService {
     private val client = OkHttpClient()
 
-    override fun getAnimeById(id: String , path :String): State<NewModel> {
-        val response = client.newCall(RequestHelper.makeAnimeRequestById(id = id , path = path)).execute()
+    override fun getAnimeById(id: String, path: String): State<Anime> {
+        val response =
+            client.newCall(RequestHelper.makeAnimeRequestById(id = id, path = path)).execute()
         return if (response.isSuccessful) {
-            Gson().fromJson(response.body?.string(), NewModel::class.java).run {
+            Gson().fromJson(response.body?.string(), Anime::class.java).run {
                 State.Success(this)
             }
         } else {
@@ -25,10 +25,10 @@ class AnimeService : BaseAnimeService {
         }
     }
 
-    override fun getAllAnime(): State<NewModel> {
+    override fun getAllAnime(): State<Anime> {
         val response = client.newCall(RequestHelper.makeAnimeRequest()).execute()
         return if (response.isSuccessful) {
-            Gson().fromJson(response.body?.string(), NewModel::class.java).run {
+            Gson().fromJson(response.body?.string(), Anime::class.java).run {
                 State.Success(this)
             }
         } else {
@@ -36,12 +36,12 @@ class AnimeService : BaseAnimeService {
         }
     }
 
-    override fun getAnimeByOriginalTitle(nameAnime: String): State<NewModel>  {
+    override fun getAnimeByOriginalTitle(nameAnime: String): State<Anime> {
         val response = client.newCall(
             RequestHelper.makeAnimeRequestByOriginalTitle(nameAnime = nameAnime)
         ).execute()
         return if (response.isSuccessful) {
-            Gson().fromJson(response.body?.string(), NewModel::class.java).run {
+            Gson().fromJson(response.body?.string(), Anime::class.java).run {
                 State.Success(this)
             }
         } else {

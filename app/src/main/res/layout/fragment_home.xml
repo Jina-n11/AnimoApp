@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:padding="@dimen/normal_space"
+    android:paddingTop="@dimen/normal_space"
+    android:paddingStart="@dimen/normal_space"
+    android:paddingEnd="@dimen/normal_space"
     android:scrollbars="none">
 
     <ProgressBar
@@ -41,7 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_search_bg"
         android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="4dp"
+        android:drawablePadding="@dimen/small_space"
         android:drawableTint="@color/gray"
         android:textColorHint="@color/gray"
         android:textColor="@color/gray"
@@ -57,11 +59,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/normal_space"
-        android:layout_marginTop="@dimen/normal_space"
+        android:layout_marginTop="@dimen/big_margin"
         android:orientation="vertical"
-        android:padding="8dp"
         tools:listitem="@layout/anime_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:ignore="MissingConstraints"

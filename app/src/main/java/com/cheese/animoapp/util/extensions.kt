@@ -6,9 +6,11 @@ import com.cheese.animoapp.util.enum.NavigationState
 
 
 fun String.toLengthOfTime(): String {
-    val length = String.format("%.2f", (this.toInt() / 100)).split(".")
+    val length = String.format("%.2f", (this.toDouble() / 60)).split(".")
     return "${length[0]}h ${length[1]}m"
 }
+
+
 
 
 fun FragmentActivity.navigateTo(to: Fragment) {

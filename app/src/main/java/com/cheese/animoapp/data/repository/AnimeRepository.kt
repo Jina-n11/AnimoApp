@@ -2,8 +2,7 @@ package com.cheese.animoapp.data.repository
 
 import BaseAnimeService
 import com.cheese.animoapp.data.State
-import com.cheese.animoapp.data.models.NewModel
-import io.reactivex.rxjava3.core.Observable
+import com.cheese.animoapp.data.models.Anime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +16,7 @@ import kotlinx.coroutines.flow.flowOn
 //}
 //
 //class AnimeRepositoryImp(private val animeService: BaseAnimeService) : AnimeRepository {
-
+//
 //    override fun getAnimeById(id: String , path :String): Observable<State<NewModel>> {
 //        return Observable.create { emit ->
 //            emit.onNext(State.Loading)
@@ -45,11 +44,13 @@ import kotlinx.coroutines.flow.flowOn
 //}
 
 interface AnimeRepository {
-    fun getAllAnime(): Flow<State<NewModel>>
+    fun getAllAnime(): Flow<State<Anime>>
+    fun getAnimeById(id: String, path: String): Flow<State<Anime>>
+    fun getAnimeByOriginalTitle(nameAnime: String): Flow<State<Anime>>
 }
 
 class AnimeRepositoryImp(private val animeService: BaseAnimeService) : AnimeRepository {
-    override fun getAllAnime(): Flow<State<NewModel>> {
+    override fun getAllAnime(): Flow<State<Anime>> {
         return flow {
             emit(State.Loading)
             try {
@@ -58,7 +59,30 @@ class AnimeRepositoryImp(private val animeService: BaseAnimeService) : AnimeRepo
             } catch (e: Exception) {
                 emit(State.Fail(e.message.toString()))
             }
+        }.flowOn(Dispatchers.IO)
+    }
 
+    override fun getAnimeById(id: String, path: String): Flow<State<Anime>> {
+        return flow {
+            emit(State.Loading)
+            try {
+                emit(animeService.getAnimeById(id = id, path = path))
+
+            } catch (e: Exception) {
+                emit(State.Fail(e.message.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getAnimeByOriginalTitle(nameAnime: String): Flow<State<Anime>> {
+        return flow {
+            emit(State.Loading)
+            try {
+                emit(animeService.getAnimeByOriginalTitle(nameAnime = nameAnime))
+
+            } catch (e: Exception) {
+                emit(State.Fail(e.message.toString()))
+            }
         }.flowOn(Dispatchers.IO)
     }
 }

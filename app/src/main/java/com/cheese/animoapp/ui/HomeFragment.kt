@@ -1,11 +1,13 @@
 package com.cheese.animoapp.ui
+
 import AnimeService
 import android.util.Log
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.cheese.animoapp.data.State
-import com.cheese.animoapp.data.models.NewModel
-import com.cheese.animoapp.data.models.NewModelItem
+import com.cheese.animoapp.data.models.Anime
+import com.cheese.animoapp.data.models.AnimeFilm
 import com.cheese.animoapp.data.repository.AnimeRepositoryImp
 import com.cheese.animoapp.databinding.FragmentHomeBinding
 import com.cheese.animoapp.ui.adapters.AnimeAdapter
@@ -13,10 +15,12 @@ import com.cheese.animoapp.ui.base.BaseFragment
 import com.cheese.animoapp.util.Constants
 import com.cheese.animoapp.util.interfaces.ItemListener
 import com.cheese.animoapp.util.navigateTo
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() ,ItemListener{
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ItemListener {
     override val LOG_TAG: String = Constants.HOME_FRAGMENT
 
     private val AnimeRepository = AnimeRepositoryImp(AnimeService())
@@ -25,20 +29,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() ,ItemListener{
 
     override fun setUp() {
         getAllAnime()
+
+        if (binding.searchAnime.text != null)
+            getAnimeByName(binding.searchAnime.text.toString())
     }
 
-    override fun addCallbacks() {}
+    override fun addCallbacks() {
+        onSearchChange()
+    }
+
+    private fun onSearchChange() {
+        Observable.create<String> { emitter ->
+            binding.searchAnime.doOnTextChanged { text, _, _, count ->
+                if (count != 1)
+                    emitter.onNext(text.toString())
+            }
+        }.debounce(1, TimeUnit.SECONDS).subscribe(
+            { animeName -> getAnimeByName(animeName = animeName) },
+            {
+                showToast(message = Constants.ANIME_NOT_FOUND)
+            }
+        )
+    }
 
 
-
-//    private fun getAllAnime() {
-//        val animeService = AnimeService()
-//        val animeRepositoryImp = AnimeRepositoryImp(animeService)
-//        val observer = animeRepositoryImp.getAllAnime()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//        observer.subscribe(::onAnime, ::onError)
-//    }
+    private fun getAnimeByName(animeName: String) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            AnimeRepository.getAnimeByOriginalTitle(animeName).collect(::onAnime)
+        }
+    }
 
     private fun getAllAnime() {
         lifecycleScope.launch(Dispatchers.Main) {
@@ -51,7 +70,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() ,ItemListener{
         Log.v(LOG_TAG, throwable.message.toString())
     }
 
-    private fun onAnime(state: State<NewModel>) {
+    private fun onAnime(state: State<Anime>) {
         when (state) {
             is State.Fail -> onFail()
             State.Loading -> onLoading()
@@ -59,20 +78,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() ,ItemListener{
         }
     }
 
+
     private fun onFail() {
-        changeProgressLoadingVisibility(View.INVISIBLE)
-        changeDataContainerVisibility(View.VISIBLE)
-        changeErrorDataVisibility(View.VISIBLE)
+        if (!binding.searchAnime.equals(null))
+            showToast(message = Constants.ANIME_NOT_FOUND)
 
     }
 
 
-    private fun onSuccess(NewModel: NewModel) {
-        setupNewModelAdapter(NewModel)
+    private fun onSuccess(Anime: Anime) {
+        setupNewModelAdapter(Anime)
         hideProgressBarAndShowData()
     }
-    private fun setupNewModelAdapter(NewModel: NewModel) {
-        val animeAdapter = AnimeAdapter(NewModel ,this)
+
+    private fun setupNewModelAdapter(Anime: Anime) {
+        val animeAdapter = AnimeAdapter(Anime, this)
         binding.mainRecyclerView.adapter = animeAdapter
     }
 
@@ -81,34 +101,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() ,ItemListener{
         showProgressBarAndHideData()
     }
 
-    private fun changeDataContainerVisibility(visibility: Int) {
-//        binding.  .visibility = visibility
-    }
 
     private fun changeProgressLoadingVisibility(visibility: Int) {
         binding.progressLoading.visibility = visibility
     }
 
-    private fun changeErrorDataVisibility(visibility: Int) {
-        binding.apply {
-            errorLottie.visibility = visibility
-        }
-    }
-
 
     private fun showProgressBarAndHideData() {
         changeProgressLoadingVisibility(View.VISIBLE)
-        changeDataContainerVisibility(View.INVISIBLE)
     }
 
     private fun hideProgressBarAndShowData() {
         changeProgressLoadingVisibility(View.INVISIBLE)
-        changeDataContainerVisibility(View.VISIBLE)
-        changeErrorDataVisibility(View.INVISIBLE)
     }
 
-    override fun onClickItem(anime: NewModelItem) {
-
+    override fun onClickItem(anime: AnimeFilm) {
         requireActivity().navigateTo(DetailsFragment.newInstance(anime))
     }
 

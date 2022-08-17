@@ -1,8 +1,7 @@
 package com.cheese.animoapp.util.interfaces
 
-import com.cheese.animoapp.data.models.Films
-import com.cheese.animoapp.data.models.NewModelItem
+import com.cheese.animoapp.data.models.AnimeFilm
 
 interface ItemListener {
-    fun onClickItem(anime: NewModelItem)
+    fun onClickItem(anime: AnimeFilm)
 }
